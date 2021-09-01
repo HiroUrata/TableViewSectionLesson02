@@ -11,11 +11,16 @@ class ViewController: UIViewController {
 
  
     @IBOutlet weak var tableView: UITableView!
+
+    let sectionTitleArray = ["Colors","sports","Fruits","GrandTours"]
+    let sectionContentsArray = [
     
-    let sectionContentsColorArray = ["red","blue","green","white","yellow"]
-    let sectionContentsSportsArray = ["Athletics","soccer","Cycling","basketball"]
-    let sectionContentsFruitsArray = ["Orange","Pineapple","KiwiFruit"]
-    let sectionContentsGrandTourArray = ["Giro d'Italia","Tour de France","Buerta Espana"]
+        ["red","blue","green","white","yellow"],
+        ["Athletics","soccer","Cycling","basketball"],
+        ["Orange","Pineapple","KiwiFruit"],
+        ["Giro d'Italia","Tour de France","Buerta Espana"]
+        
+    ]
     
     
     override func viewDidLoad() {
@@ -24,6 +29,17 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
        
+        tableView.tableHeaderView = {() -> UIView in
+            
+            let headerView = UIView(frame: CGRect(x: view.frame.minX, y: view.frame.minY, width: view.frame.size.width, height: view.frame.size.height / 4))
+            
+            headerView.backgroundColor = .systemIndigo
+            headerView.layer.cornerRadius = 20.0
+            headerView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+            
+            return headerView
+            
+        }()
     }
 
 
@@ -55,33 +71,19 @@ extension ViewController:UITableViewDataSource{
         
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return sectionTitleArray[section]
+        
+    }
+    
     
     
     
     //cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if section == 0{
-            
-            return sectionContentsColorArray.count
-            
-        }else if section == 1{
-            
-            return sectionContentsSportsArray.count
-            
-        }else if section == 2{
-            
-            return sectionContentsFruitsArray.count
-            
-        }else if section == 3{
-            
-            return sectionContentsGrandTourArray.count
-            
-        }else{
-            
-            return 0
-            
-        }
+        return sectionContentsArray[section].count
         
     }
     
@@ -90,26 +92,7 @@ extension ViewController:UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        cell.textLabel?.text = {() -> String in
-            
-            if indexPath.section == 0{
-                
-                return sectionContentsColorArray[indexPath.row]
-                
-            }else if indexPath.section == 1{
-                
-                return sectionContentsSportsArray[indexPath.row]
-                
-            }else if indexPath.section == 2{
-                
-                return sectionContentsFruitsArray[indexPath.row]
-                
-            }else{
-                
-                return sectionContentsGrandTourArray[indexPath.row]
-                
-            }
-        }()
+        cell.textLabel?.text = sectionContentsArray[indexPath.section][indexPath.row]
         
         return cell
     }
