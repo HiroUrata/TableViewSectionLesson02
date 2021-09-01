@@ -12,6 +12,11 @@ class ViewController: UIViewController {
  
     @IBOutlet weak var tableView: UITableView!
     
+    let sectionContentsColorArray = ["red","blue","green","white","yellow"]
+    let sectionContentsSportsArray = ["Athletics","soccer","Cycling","basketball"]
+    let sectionContentsFruitsArray = ["Orange","Pineapple","KiwiFruit"]
+    let sectionContentsGrandTourArray = ["Giro d'Italia","Tour de France","Buerta Espana"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +61,27 @@ extension ViewController:UITableViewDataSource{
     //cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 11
+        if section == 0{
+            
+            return sectionContentsColorArray.count
+            
+        }else if section == 1{
+            
+            return sectionContentsSportsArray.count
+            
+        }else if section == 2{
+            
+            return sectionContentsFruitsArray.count
+            
+        }else if section == 3{
+            
+            return sectionContentsGrandTourArray.count
+            
+        }else{
+            
+            return 0
+            
+        }
         
     }
     
@@ -67,16 +92,24 @@ extension ViewController:UITableViewDataSource{
         
         cell.textLabel?.text = {() -> String in
             
-            if indexPath.row < 9{
+            if indexPath.section == 0{
                 
-                return "Cell0\(String(indexPath.row + 1))"
+                return sectionContentsColorArray[indexPath.row]
+                
+            }else if indexPath.section == 1{
+                
+                return sectionContentsSportsArray[indexPath.row]
+                
+            }else if indexPath.section == 2{
+                
+                return sectionContentsFruitsArray[indexPath.row]
                 
             }else{
                 
-                return "Cell\(String(indexPath.row + 1))"
+                return sectionContentsGrandTourArray[indexPath.row]
                 
             }
-            }()
+        }()
         
         return cell
     }
