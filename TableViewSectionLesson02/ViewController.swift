@@ -37,10 +37,26 @@ extension ViewController:UITableViewDelegate{
 
 extension ViewController:UITableViewDataSource{
     
+    //セクション
+    func numberOfSections(in tableView: UITableView) -> Int { //セクション数
+        
+        return 4
+        
+    }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 25
+        
+    }
+    
+    
+    
+    
+    //cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 20
+        return 11
         
     }
     
